@@ -1,0 +1,25 @@
+﻿{%
+Dim inputName = CurrentQuestion.InputName()
+Dim inputValue
+Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
+Dim i
+Dim caption
+Dim image
+
+inputName = CurrentQuestion.InputName() 
+
+%}
+<input type="hidden" id="{%= inputName %}" name="{%= inputName %}" value="{%= CurrentQuestion.inputValue() %}" />
+<div class="controlContainer" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+{%
+	inputValue  = CurrentQuestion.InputValue()
+%}
+	<div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="1">
+	{% For i = 1 To numberOfStars %}      
+		<div class="star" data-value="{%= i %}" id="star{%= i %}"></div>
+	{% Next %}
+	</div>
+	<div class="dk" data-value="-1">{%:= CurrentADC.PropValue("dkText")%}</div>
+    <div style="clear:both;"></div>
+    
+</div>

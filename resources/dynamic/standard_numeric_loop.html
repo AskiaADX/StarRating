@@ -1,0 +1,38 @@
+﻿{%
+Dim inputName = CurrentQuestion.InputName()
+Dim inputValue
+Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
+Dim imageAlign = CurrentADC.PropValue("imageAlign")
+Dim i
+Dim j
+Dim ar = CurrentQuestion.ParentLoop.AvailableResponses
+Dim caption
+Dim image
+
+For j = 1 To ar.Count
+    inputName = CurrentQuestion.Iteration(ar[j].Index).InputName() 
+    caption   = ar[j].Caption
+    image	  = ar.ResourceURL[j]
+    %}
+    <input type="hidden" id="{%= inputName %}" name="{%= inputName %}" value="{%= CurrentQuestion.Iteration(ar[j].Index).inputValue() %}"  />
+    <div class="controlContainer">
+        <div class="captionContainer" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+        	{% IF image <> "" And imageAlign = "left" Then %}
+                <img src="{%= image %}" />
+            {% EndIF %}
+            <label class="caption">{%= caption %}</label>
+            {% IF image <> "" And imageAlign = "right" Then %}
+                <img src="{%= image %}" />
+            {% EndIF %}
+        </div>
+    {%
+        inputValue  = ar[j].InputValue()
+    %}
+        <div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="{%= j-1 %}">
+        {% For i = 1 To numberOfStars %}      
+            <div class="star" data-value="{%= i %}" id="star{%= i %}"></div>
+        {% Next %}
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+{% Next %}

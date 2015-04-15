@@ -1,0 +1,16 @@
+﻿<div id="adc_{%= CurrentQuestion.Id %}" class="adc-default">
+	{% IF CurrentADC.PropValue("isInLoop") = "1" Then %}
+        {% If CurrentQuestion.Type = "single" Then %}
+            {%:= CurrentADC.GetContent("dynamic/single_loop.html").ToText() %}
+        {% ElseIf CurrentQuestion.Type = "numeric" Then %}
+            {%:= CurrentADC.GetContent("dynamic/numeric_loop.html").ToText() %}
+        {% EndIf %}
+    {% Else %}
+    	{% If CurrentQuestion.Type = "single" Then %}
+            {%:= CurrentADC.GetContent("dynamic/single.html").ToText() %}
+        {% ElseIf CurrentQuestion.Type = "numeric" Then %}
+            {%:= CurrentADC.GetContent("dynamic/numeric.html").ToText() %}
+        {% EndIf %}
+    {% EndIF %}
+
+</div>

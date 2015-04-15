@@ -1,0 +1,29 @@
+﻿.adc-default ul,
+.adc-default li
+{
+    margin  : 0;
+    padding : 0;
+}
+.adc-default ul
+{
+    list-style-type: none;
+}
+
+.adc-default td {
+    padding:5px 10px 5px 0;
+}
+
+.adc-default .fallbackResponse td {
+    padding-bottom:20px;
+}
+
+.adc-default input[type=number] { 
+	height:30px; width:30px; text-align:center; 
+	-webkit-border-radius:5px; 
+	-moz-border-radius:5px; 
+	-khtml-border-radius:5px; 
+	border-radius:5px;
+	border:2px solid #cccccc;
+}
+
+.adc-default img, .adc-default .caption { display:inline-block; vertical-align:middle; }
