@@ -19,7 +19,7 @@ inputName = CurrentQuestion.InputName()
 <div class="controlContainer">
 	<div class="starContainer {%= inputName %}" data-id="{%= inputName %}">
 	{% For i = 1 To arCount %}      
-		<a class="star {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= ar[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%:= ar[i].Caption %}</span>{% EndIF %}</a>
+		<a class="star {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= ar[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%= ar[i].Caption %}</span>{% EndIF %}</a>
 	{% Next %}
 	</div>
     {% IF dkSingle = "1" Then %}

@@ -16,7 +16,7 @@ If useList Then %}
         inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
         caption      = CurrentQuestion.AvailableResponses[i].Caption
         %}
-        <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+        <option value="{%= inputValue %}" {%:= attrSelected %}>{%:= caption %}</option>
     {% Next %}
     </select>
 {% Else %}
@@ -35,7 +35,7 @@ If useList Then %}
             <td>
                 <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
             </td><td>
-            	<label for="{%= inputId %}">{%= caption %}</label>
+            	<label for="{%= inputId %}">{%:= caption %}</label>
             </td>
         </tr>
         {% Next %}
