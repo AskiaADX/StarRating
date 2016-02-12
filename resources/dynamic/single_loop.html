@@ -37,7 +37,7 @@ For j = 1 To ar.Count
             inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
             caption      = CurrentQuestion.AvailableResponses[i].Caption
             %}
-            <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+            <option value="{%= inputValue %}" {%:= attrSelected %}>{%:= caption %}</option>
         {% Next %}
         </select>
         </td></tr>
@@ -57,7 +57,7 @@ For j = 1 To ar.Count
                 <td>
                     <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
                 </td><td>
-                    <label for="{%= inputId %}">{%= caption %}</label>
+                    <label for="{%= inputId %}">{%:= caption %}</label>
                 </td>
             </tr>
             {% Next %}

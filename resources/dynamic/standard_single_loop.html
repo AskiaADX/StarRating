@@ -22,7 +22,7 @@ For j = 1 To ar.Count
             {% IF image <> "" And imageAlign = "left" Then %}
                 <img src="{%= image %}" />
             {% EndIF %}
-            <label class="caption">{%= caption %}</label>
+            <label class="caption">{%:= caption %}</label>
             {% IF image <> "" And imageAlign = "right" Then %}
                 <img src="{%= image %}" />
             {% EndIF %}
@@ -33,7 +33,7 @@ For j = 1 To ar.Count
     %}
         <div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="{%= j-1 %}">
         {% For i = 1 To CurrentQuestion.AvailableResponses.Count %}      
-            <a class="star {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%= CurrentQuestion.AvailableResponses[i].Caption %}</span>{% EndIF %}</a>
+            <a class="star {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%:= CurrentQuestion.AvailableResponses[i].Caption %}</span>{% EndIF %}</a>
         {% Next %}
         </div>
         <div style="clear:both;"></div>

@@ -36,7 +36,7 @@ For j = 1 To ar.Count
 	{% IF image <> "" And imageAlign = "left" Then %}
         <img src="{%= image %}" />
     {% EndIF %}
-    <label class="caption">{%= caption %}</label>
+    <label class="caption">{%:= caption %}</label>
     {% IF image <> "" And imageAlign = "right" Then %}
         <img src="{%= image %}" />
     {% EndIF %}

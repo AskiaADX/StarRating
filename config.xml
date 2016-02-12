@@ -7,7 +7,7 @@
   <info>
     <name>adc2-starRating</name>
     <guid>58f3619d-2193-48b6-927c-b81c985aaee2</guid>
-    <version>1.0.10</version>
+    <version>1.0.11</version>
     <date>2013-11-29</date>
     <description>
       <![CDATA[
@@ -19,11 +19,13 @@
 			   - enabled DK for numeric and single choice questions
 		v1.0.7 - fixed issue with DK width
 		v1.0.10 - fixed issue with numeric loops
+		v1.0.11 - fixed issue with caption for loops caption
       ]]>
     </description>
     <author>
       <![CDATA[
         Paul Ferreira <paulf@askia.com>
+        Jerome Duparc <jeromed@askia.com>
       ]]>
     </author>
     <company>Askia</company>
