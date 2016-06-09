@@ -3,6 +3,7 @@
 
 	$.fn.adcStarRating = function adcStarRating(options) {
 		
+        (options.instanceId = options.instanceId || 1);
 		(options.width = options.width || 400);
 		(options.height = options.height || "auto");
 		(options.animate = Boolean(options.animate));
@@ -16,6 +17,7 @@
 			rowVerticalAlignment = options.rowVerticalAlignment,
 			isSingle = Boolean(options.isSingle),
 			valuesArray = new Array(),
+            instanceId = options.instanceId,
 			dkSingle = Boolean(options.dkSingle);
 						
 		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
@@ -32,7 +34,7 @@
 		}
 		
 		if ( isInLoop ) $(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-		$('.starContainer').width( $('.star').outerWidth(true) * $('.starContainer .star').size() );
+		$('.starContainer').width( $('.star').outerWidth(true) * $('#adc_' + instanceId + ' .starContainer .star').size() );
 		
 		var maxCaptionWidth = Math.max.apply( null, $( '.caption' ).map( function () {
 			return $( this ).outerWidth( true );

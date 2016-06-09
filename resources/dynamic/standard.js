@@ -1,8 +1,9 @@
-﻿/* standard.js */
+/* standard.js */
 $(window).load(function() {
 	// {%= CurrentQuestion.Type %}
 	$('#adc_{%= CurrentADC.InstanceId %}').adcStarRating({
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
+        instanceId : {%= CurrentADC.InstanceId %},
 		width : 400,
 		controlWidth : '{%= CurrentADC.PropValue("controlWidth") %}',
 		controlAlign : '{%= CurrentADC.PropValue("controlAlign") %}',
