@@ -2,6 +2,7 @@
 $(window).load(function() {
 	// {%= CurrentQuestion.Type %}
 	$('#adc_{%= CurrentADC.InstanceId %}').adcStarRating({
+      	use : '{%= CurrentADC.PropValue("use") %}',
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
         instanceId : {%= CurrentADC.InstanceId %},
 		width : 400,

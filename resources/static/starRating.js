@@ -4,12 +4,14 @@
 	$.fn.adcStarRating = function adcStarRating(options) {
 		
         (options.instanceId = options.instanceId || 1);
+        (options.use = options.use || "star");
 		(options.width = options.width || 400);
 		(options.height = options.height || "auto");
 		(options.animate = Boolean(options.animate));
 		(options.autoForward = Boolean(options.autoForward));
 		
 		var isInLoop = Boolean(options.isInLoop),
+            useStar = options.use,
 			showTooltips = Boolean(options.showTooltips),
 			tooltipStyle = options.tooltipStyle,
 			tooltipCurvedCorners = options.tooltipCurvedCorners,
@@ -34,7 +36,7 @@
 		}
 		
 		if ( isInLoop ) $(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-		$('.starContainer').width( $('.star').outerWidth(true) * $('#adc_' + instanceId + ' .starContainer .star').size() );
+		$('.starContainer').width( $('.' + useStar).outerWidth(true) * $('#adc_' + instanceId + ' .starContainer .' + useStar).size() );
 		
 		var maxCaptionWidth = Math.max.apply( null, $( '.caption' ).map( function () {
 			return $( this ).outerWidth( true );
@@ -159,7 +161,7 @@
 			
 			if ( isSingle ) starValue = $.inArray(parseInt(value), valuesArray) + 1;
 			
-			$container.find('.star').slice(0,starValue).addClass('selected');
+			$container.find('.' + useStar).slice(0,starValue).addClass('selected');
 			$input.val(value);
 			
 			// if auto forward and all answered
@@ -179,12 +181,12 @@
 		function hoverStars(target) {
 			$container = target.parents('.starContainer');
 			var starValue = $.inArray(parseInt(target.data('value')), valuesArray) + 1;
-			$container.find('.star').slice(0,starValue).addClass('hover');
+			$container.find('.' + useStar).slice(0,starValue).addClass('hover');
 		}
 		
 		function unHoverStars(target) {
 			$container = target.parents('.starContainer');
-			$container.find('.star').removeClass('hover');
+			$container.find('.' + useStar).removeClass('hover');
 		}
 		
 		function selectDK() {
@@ -196,7 +198,7 @@
 				DKID = $input.attr('id').replace(/[^0-9]/g, '');
 				
 			// unselect all stars
-			$container.find('.star.selected').removeClass('selected');
+			$container.find('.' + useStar + '.selected').removeClass('selected');
 			if ( $(this).hasClass('selected') ) {
 				$(this).removeClass('selected');
 				$input.val('');
@@ -231,15 +233,15 @@
 		}
 		
 		// Remember value
-		//if ( items[0].element.val() > 0 ) $container.find('.star').slice(0,items[0].element.val()).addClass('selected');
+		//if ( items[0].element.val() > 0 ) $container.find('.' + useStar).slice(0,items[0].element.val()).addClass('selected');
 		$.each( items, function ( index, element ) {
 			if ( items[index].element.val() > 0 ) {
 				$container = $('.' + items[index].element.attr('id'));
 				var starValue = isSingle  ? $.inArray(parseInt(items[index].element.val()), valuesArray) + 1 : items[index].element.val();
-				if ( dkSingle && isSingle && $.inArray(parseInt(items[index].element.val()), valuesArray) === $container.find('.star').size() ) {
+				if ( dkSingle && isSingle && $.inArray(parseInt(items[index].element.val()), valuesArray) === $container.find('.' + useStar).size() ) {
 					$container.next('.dk').addClass('selected');
 				} else {
-					$container.find('.star').slice(0,starValue).addClass('selected');
+					$container.find('.' + useStar).slice(0,starValue).addClass('selected');
 				}
 			} else if ( items[index].element.val() == -1 ) {
 				var DKID = items[0].element.attr('id').replace(/[^0-9]/g, '');
@@ -254,7 +256,7 @@
 				easing = (!$.support.transition)?'swing':'snap';
 			
 			$container = $('.starContainer');
-			$container.find('.star').each(function forEachItem() {
+			$container.find('.' + useStar).each(function forEachItem() {
 				$(this).css({ x: 2000, opacity: 0 }).transition({ x: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
 				delay += 30;
 			});
@@ -263,16 +265,16 @@
 		// Attach all events
 		$container = $(this);
 		/*$container
-			.delegate('.star', 'click', selectStars)
-			.delegate('.star', 'mouseover mouseout', function(e) {
+			.delegate('.' + useStar, 'click', selectStars)
+			.delegate('.' + useStar, 'mouseover mouseout', function(e) {
     			if (e.type == 'mouseover') {
       				hoverStars($(this))
     			} else {
       				unHoverStars($(this))
     			}
 			});*/
-		$container.on('click', '.star', selectStars);
-		$container.on('mouseover mouseout', '.star',  function(e) {
+		$container.on('click', '.' + useStar, selectStars);
+		$container.on('mouseover mouseout', '.' + useStar,  function(e) {
 			
 			if (e.type == 'mouseover') {
 				hoverStars($(this))

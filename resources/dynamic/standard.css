@@ -1,4 +1,4 @@
-﻿/* standard.css */
+/* standard.css */
 {%
 Dim controlAlign =CurrentADC.PropValue("controlAlign")
 Dim showCaption =CurrentADC.PropValue("showCaption")
@@ -47,7 +47,7 @@ Dim tooltipColourSecondary =CurrentADC.PropValue("tooltipColourSecondary")
 Dim tooltipBorderColour =CurrentADC.PropValue("tooltipBorderColour")
 Dim tooltipBorderThickness =CurrentADC.PropValue("tooltipBorderThickness")
 Dim tooltipBorderStyle =CurrentADC.PropValue("tooltipBorderStyle")
-
+Dim useImage = CurrentADC.PropValue("use")
 %}
 
 #adc_{%= CurrentADC.InstanceId%} {

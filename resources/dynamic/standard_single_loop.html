@@ -1,4 +1,4 @@
-﻿{%
+{%
 Dim inputName = CurrentQuestion.InputName()
 Dim inputValue
 Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
@@ -33,7 +33,7 @@ For j = 1 To ar.Count
     %}
         <div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="{%= j-1 %}">
         {% For i = 1 To CurrentQuestion.AvailableResponses.Count %}      
-            <a class="star {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%= CurrentQuestion.AvailableResponses[i].Caption %}</span>{% EndIF %}</a>
+            <a class="{%= CurrentADC.PropValue("use") %} {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%= CurrentQuestion.AvailableResponses[i].Caption %}</span>{% EndIF %}</a>
         {% Next %}
         </div>
         <div style="clear:both;"></div>
