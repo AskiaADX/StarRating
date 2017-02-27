@@ -163,6 +163,9 @@
 			
 			$container.find('.' + useStar).slice(0,starValue).addClass('selected');
 			$input.val(value);
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 			
 			// if auto forward and all answered
 			if ( options.autoForward ) {
@@ -208,6 +211,9 @@
 				$input.val(value);
 				$('input[name="M' + DKID + ' -1"]').prop('checked', true);
 			}
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 			
 			
 			// if auto forward and all answered
