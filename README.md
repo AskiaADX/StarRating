@@ -1,4 +1,4 @@
-# Star Rating ADC 2
+# Star Rating
 
 *version 1.0.13 - June, 17th 2016*
 
