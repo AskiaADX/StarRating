@@ -1,0 +1,322 @@
+<table class="askiaadctable">
+<tbody>
+<tr>
+<td class="askiaadctdheader">Parameters</td>
+<td class="askiaadctdheader">Type</td>
+<td class="askiaadctdheader">Comments and/or possible value</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>General</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Control Width</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">100% or 200px or 150pt etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Max Width</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">100% or 200px or 150pt etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Control Alignment</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Left, Center or Right</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Animate Responses</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Animation Speed</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Very Fast, Fast, Medium or Slow</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Auto Forward</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Use a selection list</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Is in loop</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>Tool Tips</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show tooltips</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip font size</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">14px or 1.3em etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip font colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip curved corners</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">0 or 2 or 5 or 10 or 15 or 20 or 25 or 30</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip Colour Primary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip Colour Secondary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip Border Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip Border Thickness</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or 1px or 2px etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Tooltip Border Style</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or Solid or Dashed or Dotted or Double</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>Stars</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Number of Stars</td>
+<td class="askiaadctd">Number</td>
+<td class="askiaadctd">5 or 4 etc.</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>Looped Responses</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show Captions</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Left side width</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">auto or 200px or 90% etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Caption width</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">auto or 200px or 90% etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show Images</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Image Align</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Left or Right</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Row Vertical alignment</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Top, Middle or Bottom</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Caption Text alignment</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Left, Center or Right</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>Images</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Max Image Width</td>
+<td class="askiaadctd">Number</td>
+<td class="askiaadctd">blank or 100 or 200 etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Max Image Height</td>
+<td class="askiaadctd">Number</td>
+<td class="askiaadctd">blank or 100 or 200 etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Force image size</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">No or Force width or Force height or Force both</td>
+</tr>
+<tr>
+<td class="askiaadccategory" colspan="3"><strong>DK</strong></td>
+</tr>
+<tr>
+<td class="askiaadctdname">Turn on DK for single choice question</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Position</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Left, Center or Right</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Text</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Text Padding</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">10px or 10px 10px or 10px 0px 10px 0px etc...</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Margin</td>
+<td class="askiaadctd">String</td>
+<td class="askiaadctd">10px or 10px 10px or 10px 0px 10px 0px etc...</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Colour Primary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Colour Secondary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Font Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Border Radius</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Border Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Border Thickness</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or 1px or 2px etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Border Style</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or Solid or Dashed or Dotted or Double</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Drop Shadow</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">On or Off</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show DK Hover Colour</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Colour Primary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Colour Secondary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show DK Hover Font Colour</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Font Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show DK Hover Border</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Border Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Border Thickness</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or 1px or 2px etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Border Style</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or Solid or Dashed or Dotted or Double</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Show DK Hover Shadow</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">Yes or No</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Hover Drop Shadow</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">On or Off</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Colour Primary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Colour Secondary</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Font Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Border Colour</td>
+<td class="askiaadctd">Colour</td>
+<td class="askiaadctd">&nbsp;</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Border Thickness</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or 1px or 2px etc.</td>
+</tr>
+<tr>
+<td class="askiaadctdname">DK Border Style</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">None or Solid or Dashed or Dotted or Double</td>
+</tr>
+<tr>
+<td class="askiaadctdname">Selected DK Drop Shadow</td>
+<td class="askiaadctd">Combo box</td>
+<td class="askiaadctd">On or Off</td>
+</tr>
+</tbody>
+</table>

@@ -9,6 +9,7 @@
 		(options.height = options.height || "auto");
 		(options.animate = Boolean(options.animate));
 		(options.autoForward = Boolean(options.autoForward));
+        (options.currentQuestion = options.currentQuestion || '');
 		
 		var isInLoop = Boolean(options.isInLoop),
             useStar = options.use,
@@ -163,7 +164,10 @@
 			
 			$container.find('.' + useStar).slice(0,starValue).addClass('selected');
 			$input.val(value);
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 			
@@ -211,7 +215,10 @@
 				$input.val(value);
 				$('input[name="M' + DKID + ' -1"]').prop('checked', true);
 			}
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 			

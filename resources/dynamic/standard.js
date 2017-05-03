@@ -23,6 +23,7 @@ $(window).load(function() {
 		forceImageSize : '{%= CurrentADC.PropValue("forceImageSize") %}',
 		dkSingle: {%= (CurrentADC.PropValue("dkSingle") = "1") %},
 		dkLeftMargin: '{%= CurrentADC.PropValue("dkLeftMargin") %}',
+      	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		items : [
 			{% IF CurrentADC.PropValue("isInLoop") = "1" Then %}
 				{% IF CurrentQuestion.Type = "single" Then %}
