@@ -1,7 +1,7 @@
-﻿{% 
+{% 
 Dim i 
 Dim inputName
-Dim ar = CurrentQuestion.ParentLoop.AvailableResponses
+Dim ar = CurrentQuestion.ParentLoop.Answers
 Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
 
 For i = 1 To ar.Count 
