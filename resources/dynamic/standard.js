@@ -1,17 +1,16 @@
-/* standard.js */
-$(window).load(function() {
-	// {%= CurrentQuestion.Type %}
-	$('#adc_{%= CurrentADC.InstanceId %}').adcStarRating({
+DomReady.ready(function() {
+     
+    var starRating = new StarRating({
+        instanceId : '{%= CurrentADC.InstanceId%}',
+        currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
       	use : '{%= CurrentADC.PropValue("use") %}',
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
-        instanceId : {%= CurrentADC.InstanceId %},
 		width : 400,
 		controlWidth : '{%= CurrentADC.PropValue("controlWidth") %}',
 		controlAlign : '{%= CurrentADC.PropValue("controlAlign") %}',
 		maxWidth : '{%= CurrentADC.PropValue("maxWidth") %}',
+        animateResponses: {%= (CurrentADC.PropValue("animateResponses") = "1") %},
 		autoForward: {%= (CurrentADC.PropValue("autoForward") = "1") %},
-		animate: {%= (CurrentADC.PropValue("animateResponses") = "1") %},
-		animationSpeed: '{%= CurrentADC.PropValue("animationSpeed") %}',
 		numberOfStars: {%= CurrentADC.PropValue("numberOfStars") %},
 		backgroundSize: '{%:= Browser.Support("backgroundsize")%}',
 		isInLoop: {%= (CurrentADC.PropValue("isInLoop") = "1") %},

@@ -1,17 +1,130 @@
-(function ($) {
-	"use strict";
+(function () {
+    
+     // Polyfill: Add a getElementsByClassName function IE < 9
+    function polyfillGetElementsByClassName() {
+        if (!document.getElementsByClassName) {
+            document.getElementsByClassName = function(search) {
+                var d = document, elements, pattern, i, results = [];
+                if (d.querySelectorAll) { // IE8
+                    return d.querySelectorAll("." + search);
+                }
+                if (d.evaluate) { // IE6, IE7
+                    pattern = ".//*[contains(concat(' ', @class, ' '), ' " + search + " ')]";
+                    elements = d.evaluate(pattern, d, null, 0, null);
+                    while ((i = elements.iterateNext())) {
+                        results.push(i);
+                    }
+                } else {
+                    elements = d.getElementsByTagName("*");
+                    pattern = new RegExp("(^|\\s)" + search + "(\\s|$)");
+                    for (var j = 0, l = elements.length; j < l; j++) {
+                        if ( pattern.test(elements[j].className) ) {
+                            results.push(elements[j]);
+                        }
+                    }
+                }
+                return results;
+            };
+        }
+	}
+    
+    function hasClass(el, className) {
+        return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
+	}
 
-	$.fn.adcStarRating = function adcStarRating(options) {
+	function addClass(el, className) {
+        if (el.classList) el.classList.add(className);
+        else if (!hasClass(el, className)) el.className += ' ' + className;
+	}
+
+	function removeClass(el, className) {
+        if (el.classList) el.classList.remove(className);
+        else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
+	}
+    
+    function tbBorder(el) {
+		var margin = el.offsetHeight - el.clientHeight;
+		return margin;
+	}
 		
-        (options.instanceId = options.instanceId || 1);
+	function lrBorder(el) {
+		var margin = el.offsetWidth - el.clientWidth;
+		return margin;
+	}
+		
+	function outerHeight(el) {
+		var height = el.offsetHeight;
+		var style = el.currentStyle || getComputedStyle(el);
+
+		height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+		return height;
+	}
+		
+	function outerWidth(el) {
+		var width = el.offsetWidth;
+		var style = el.currentStyle || getComputedStyle(el);
+
+        width += parseInt(style.marginLeft) + parseInt(style.marginRight);
+		return width;
+	}
+	
+	function StarRating(options) {
+        this.instanceId = options.instanceId || 1;
+        var container = document.getElementById("adc_" + this.instanceId),
+            images = [].slice.call(container.getElementsByTagName("img")),
+        	total_images = container.getElementsByTagName("img").length;
+        
+        function loadImages( images, callback ) {
+            var count = 0;
+
+            function check( n ) {
+                if( n == total_images ) {
+                    callback();
+                }
+            }
+
+            for( i = 0; i < total_images; ++i ) {
+                var src = images[i].src;
+                var img = document.createElement( "img" );
+                img.src = src;
+
+                img.addEventListener( "load", function() {
+                    if( this.complete ) {
+                        count++;
+                        check( count );
+                    }
+                });
+            }
+
+        }
+
+        window.addEventListener( "load", function() {
+            if ( total_images > 0 ) {
+                loadImages( images, function() {
+                    init(options);
+                });
+            } else {
+                init(options);
+            }
+        });
+        
+    }
+    
+    function init(options) {
+        
+		this.instanceId = options.instanceId || 1;
+		this.options = options;
         (options.use = options.use || "star");
 		(options.width = options.width || 400);
 		(options.height = options.height || "auto");
 		(options.animate = Boolean(options.animate));
 		(options.autoForward = Boolean(options.autoForward));
         (options.currentQuestion = options.currentQuestion || '');
-		
-		var isInLoop = Boolean(options.isInLoop),
+        
+		polyfillGetElementsByClassName();
+        
+        var container = document.getElementById("adc_" + this.instanceId),
+			isInLoop = Boolean(options.isInLoop),
             useStar = options.use,
 			showTooltips = Boolean(options.showTooltips),
 			tooltipStyle = options.tooltipStyle,
@@ -19,151 +132,184 @@
 			tooltipShadow = options.tooltipShadow,
 			rowVerticalAlignment = options.rowVerticalAlignment,
 			isSingle = Boolean(options.isSingle),
-			valuesArray = new Array(),
+			valuesArray = [],
             instanceId = options.instanceId,
-			dkSingle = Boolean(options.dkSingle);
-						
-		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
-		if (!$.support.transition) $.fn.transition = $.fn.animate;
-		
-		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
-		$(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
+			dkSingle = Boolean(options.dkSingle),
+            images = container.getElementsByTagName("img"),
+			inputs = [].slice.call(document.getElementsByTagName("input")),
+            captions =  [].slice.call(container.getElementsByClassName('caption')),
+            controlContainers = [].slice.call(container.getElementsByClassName('controlContainer')),
+            allStars = [].slice.call(container.querySelectorAll('.' + useStar)),
+            items = options.items,
+            submitBtns = [],
+            nextBtn,
+            total_images = container.getElementsByTagName("img").length,
+			images_loaded = 0,
+        	animateResponses = Boolean(options.animateResponses);
+                
+        for(var i = 0; i < inputs.length; i++) {
+            if(inputs[i].type.toLowerCase() === 'submit') {
+               submitBtns.push(inputs[i]);
+            }
+        }
+        nextBtn = submitBtns[submitBtns.length-2];
+                        
+        container.style.maxWidth = options.maxWidth;
+        container.style.width = options.controlWidth;
+        container.parentNode.style.width = '100%';
+        container.parentNode.style.overflow = 'hidden';
 		
 		if ( options.controlAlign === "center" ) {
-			$(this).parents('.controlContainer').css({'text-align':'center'});
-			$(this).css({'margin':'0px auto'});
+            container.parentNode.style.textAlign = 'center';
+            container.style.margin = '0px auto';
 		} else if ( options.controlAlign === "right" ) {
-			$(this).css({'margin':'0 0 0 auto'});
+            container.style.margin = '0 0 0 auto';
 		}
+        
+        if ( isInLoop ) {
+            container.parentNode.style.width = '100%';
+        	container.parentNode.style.overflow = 'hidden';
+        }
 		
-		if ( isInLoop ) $(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-		$('.starContainer').width( $('.' + useStar).outerWidth(true) * $('#adc_' + instanceId + ' .starContainer .' + useStar).size() );
+        container.querySelector('.starContainer').width = outerWidth(container.querySelector('.' + useStar)) * document.querySelectorAll('#adc_' + instanceId + ' .starContainer .' + useStar).length;
 		
-		var maxCaptionWidth = Math.max.apply( null, $( '.caption' ).map( function () {
-			return $( this ).outerWidth( true );
-		}).get() );
-		
-		if ( maxCaptionWidth + $('.starContainer').outerWidth(true) > $(this).outerWidth() ) {
-			$('.starContainer').css({'float':'left'});
-			$('.caption').css({'display':'block'});
-		}
-		
-		// Check for images and resize
-		$container = $(this);
-		$container.find('.captionContainer img').each(function forEachImage() {
-			var size = {
-				width: $(this).width(),
-				height: $(this).height()
-			};
-			
-			if (options.forceImageSize === "height" ) {
-				if ( size.height > parseInt(options.maxImageHeight,10) ) {
-					var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
-					size.height *= ratio,
-					size.width  *= ratio;
-				}
-			} else if (options.forceImageSize === "width" ) {
-				if ( size.width > parseInt(options.maxImageWidth,10) ) {
-					var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
-					size.width  *= ratio,
-					size.height *= ratio;
-				}
-				
-			} else if (options.forceImageSize === "both" ) {
-				if ( parseInt(options.maxImageHeight,10) > 0 && size.height > parseInt(options.maxImageHeight,10) ) {
-					var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
-					size.height *= ratio,
-					size.width  *= ratio;
-				}
-	
-				if ( parseInt(options.maxImageWidth,10) > 0 && size.width > parseInt(options.maxImageWidth,10) ) {
-					var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
-					size.width  *= ratio,
-					size.height *= ratio;
-				}
-				
-			} 
-			$(this).css(size);
-		});
-		
-		// Global variables
-		var $container = $(this),
-			items = options.items;
-		
+        if (captions.length > 0) {
+            var width = outerWidth(captions[0]);
+            var maxCaptionWidth = outerWidth(captions[0]);
+            for ( i = 0; i < captions.length; i++) {
+                maxCaptionWidth = Math.max(width, outerWidth(captions[i]));
+            }
+
+            if ( maxCaptionWidth + outerWidth(container.querySelector('.starContainer')) > container.offsetWidth ) {
+                container.querySelector('.starContainer').style.float = "left";
+                for ( i = 0; i < captions.length; i++) {
+                    captions[i].style.display = "block";
+                }
+            }
+        }
+            
+		// Check for missing images and resize
+        for ( i=0; i<images.length; i++) {
+            var size = {
+                width: images[i].width,
+                height: images[i].height
+            };
+
+            if (options.forceImageSize === "height" ) {
+                if ( size.height > parseInt(options.maxImageHeight,10) ) {
+                    var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
+                    size.height *= ratio;
+                    size.width  *= ratio;
+                }
+            } else if (options.forceImageSize === "width" ) {
+                if ( size.width > parseInt(options.maxImageWidth,10) ) {
+                    var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
+                    size.width  *= ratio;
+                    size.height *= ratio;
+                }
+            } else if (options.forceImageSize === "both" ) {
+                if ( parseInt(options.maxImageHeight,10) > 0 && size.height > parseInt(options.maxImageHeight,10) ) {
+                    var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
+                    size.height *= ratio;
+                    size.width  *= ratio;
+                }
+
+                if ( parseInt(options.maxImageWidth,10) > 0 && size.width > parseInt(options.maxImageWidth,10) ) {
+                    var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
+                    size.width  *= ratio;
+                    size.height *= ratio;
+                }
+
+            } 
+            images[i].width = size.width;
+            images[i].height = size.height;
+        }
+
 		// Check for DK	
-		var DKID = items[0].element.attr('id').replace(/[^0-9]/g, ''),
-			hasDK = ( $('input[name="M' + DKID + ' -1"]').size() > 0 ) ? true : false;
-		if ( hasDK ) $('input[name="M' + DKID + ' -1"]').hide().next('span').hide();
+		var DKID = items[0].element.id.replace(/[^0-9]/g, ''),
+			hasDK = ( document.querySelectorAll('input[name="M' + DKID + ' -1"]').length > 0 ) ? true : false;
+		if ( hasDK ) {
+            document.querySelector('input[name="M' + DKID + ' -1"]').style.display = "none";
+            document.querySelector('img[id$="M' + DKID + '_-1"]').style.display = "none";
+            document.querySelector('span#cpt' + DKID + '_-1').style.display = "none";
+            // image ends with M1_-1   $
+            // caption cpt1_-1
+            // input same as before
+        }
 		
 		if ( isSingle ) {
 			if ( isInLoop ) {
 				var allValuesArray = items[0].allValues.split(",");
-				for ( var i=0; i<allValuesArray.length; i++ ) {
+				for ( i=0; i<allValuesArray.length; i++ ) {
 					valuesArray.push( parseInt( allValuesArray[i] ) );	
 				}
 			} else {
-				for ( var i=0; i<items.length; i++ ) {
+				for ( i=0; i<items.length; i++ ) {
 					valuesArray.push(items[i].value);	
 				}
 			}
 		} else {
-			for ( var i=1; i<=items.length; i++ ) {
+			for ( i=1; i<=items.length; i++ ) {
 				valuesArray.push(i);	
 			}
 		}
-			
-		$container.find('.controlContainer').each(function forEachItem() {
-			if ( rowVerticalAlignment === "top" ) {
-				/*if ( $(this).find('.captionContainer').outerHeight() > $(this).find('.starContainer').outerHeight() ) {
-					
-				} else { 
-				
-				}*/
+        
+        for ( i=0; i<controlContainers.length; i++ ) {
+            if ( rowVerticalAlignment === "top" ) {
+
 			} else if ( rowVerticalAlignment === "middle" ) {
-				if ( $(this).find('.captionContainer').outerHeight() > $(this).find('.starContainer').outerHeight() ) {
-					var paddingFix = Math.floor( ($(this).find('.captionContainer').outerHeight() - $(this).find('.starContainer').outerHeight() )/2 );
-					$(this).find('.starContainer').css({'padding-top':paddingFix+'px', 'padding-bottom':paddingFix+'px'});
-				} else { 
-					var paddingFix = Math.floor( ($(this).find('.starContainer').outerHeight() - $(this).find('.captionContainer').outerHeight() )/2 );
-					$(this).find('.captionContainer').css({'padding-top':paddingFix+'px', 'padding-bottom':paddingFix+'px'});
-				}
+                if (captions.length > 0) {
+                    if ( outerHeight(controlContainers[i].querySelector('.captionContainer')) > outerHeight(controlContainers[i].querySelector('.starContainer')) ) {
+                        var paddingFix = Math.floor( (outerHeight(controlContainers[i].querySelector('.captionContainer')) - outerHeight(controlContainers[i].querySelector('.starContainer')) )/2 );
+                        controlContainers[i].querySelector('.starContainer').style.paddingTop = paddingFix+'px';
+                        controlContainers[i].querySelector('.starContainer').style.paddingBottom = paddingFix+'px';
+                    } else { 
+                        var paddingFix = Math.floor( (outerHeight(controlContainers[i].querySelector('.starContainer')) - outerHeight(controlContainers[i].querySelector('.captionContainer')) )/2 );
+                        controlContainers[i].querySelector('.captionContainer').style.paddingTop = paddingFix+'px';
+                        controlContainers[i].querySelector('.captionContainer').style.paddingBottom = paddingFix+'px';
+                    }
+                }
 			} else if ( rowVerticalAlignment === "bottom" ) {
-				if ( $(this).find('.captionContainer').outerHeight() > $(this).find('.starContainer').outerHeight() ) {
-					var paddingFix = Math.floor( $(this).find('.captionContainer').outerHeight() - $(this).find('.starContainer').outerHeight() );
-					$(this).find('.starContainer').css({'padding-top':paddingFix+'px'});
-				} else { 
-					var paddingFix = Math.floor( $(this).find('.starContainer').outerHeight() - $(this).find('.captionContainer').outerHeight() );
-					$(this).find('.captionContainer').css({'padding-top':paddingFix+'px'});
-				}
+                if (captions.length > 0) {
+                    if ( outerHeight(controlContainers[i].querySelector('.captionContainer')) > outerHeight(controlContainers[i].querySelector('.starContainer')) ) {
+                        var paddingFix = Math.floor( outerHeight(controlContainers[i].querySelector('.captionContainer')) - outerHeight(controlContainers[i].find('.starContainer')) );
+                        controlContainers[i].querySelector('.starContainer').style.paddingTop = paddingFix+'px';
+                    } else { 
+                        var paddingFix = Math.floor( outerHeight(controlContainers[i].querySelector('.starContainer')) - outerHeight(controlContainers[i].querySelector('.captionContainer')) );
+                        controlContainers[i].querySelector('.captionContainer').style.paddingTop = paddingFix+'px';
+                    }
+                }
 			}
-			//$(this).css({ x: 2000, opacity: 0 }).transition({ x: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
-			//delay += 30;
-		});
-			
+        }
+        
 		// Select a statement
 		// @this = target node
-		function selectStars() {
-			
-			//console.log($(this).parents('.controlContainer').data('iteration'));
-			
-			var $container = $(this).parents('.starContainer'),
-				$input = isInLoop ? items[$container.data('iteration')].element : items[0].element,
-				$target = $(this),
-				value = $target.attr('data-value'),
+		function selectStars(target) {
+            			
+			var starContainer = target.parentNode,
+                input = isInLoop ? items[starContainer.getAttribute('data-iteration')].element : items[0].element,
+				value = target.getAttribute('data-value'),
 				starValue = value,
-				DKID = $input.attr('id').replace(/[^0-9]/g, '');
+				DKID = input.id.replace(/[^0-9]/g, '');
+            
+            var selectedElements = [].slice.call(starContainer.getElementsByClassName('selected'));
+            for ( i=0; i<selectedElements.length; i++) {
+                removeClass(selectedElements[i], 'selected');
+            }
 
-			$container.find('.selected').removeClass('selected');
 			if ( hasDK || dkSingle ) {
-				$container.next('.dk').removeClass('selected');
-				$('input[name="M' + DKID + ' -1"]').prop('checked', false);
+                removeClass( target.parentNode.parentNode.querySelector('.dk'), 'selected');
+                if ( document.querySelector('input[name="M' + DKID + ' -1"]') )
+					document.querySelector('input[name="M' + DKID + ' -1"]').checked = false;
 			}
-			//$target.addClass('selected');
 			
-			if ( isSingle ) starValue = $.inArray(parseInt(value), valuesArray) + 1;
-			
-			$container.find('.' + useStar).slice(0,starValue).addClass('selected');
-			$input.val(value);
+			if ( isSingle ) starValue = valuesArray.indexOf(parseInt(value)) + 1;
+            
+            var starsToSelect = [].slice.call(starContainer.querySelectorAll('.' + useStar)).slice(0,starValue);
+            for ( i=0; i<starsToSelect.length; i++) {
+                addClass(starsToSelect[i], 'selected');
+            }                                 
+			input.value = value;
             if (window.askia 
                 && window.arrLiveRoutingShortcut 
                 && window.arrLiveRoutingShortcut.length > 0
@@ -174,46 +320,59 @@
 			// if auto forward and all answered
 			if ( options.autoForward ) {
 				var totalAnswers = 0;
-				$container = $(this).parents('.adc-starRating');
-				$container.find('input').each(function forEachItem() {
-					if ( $(this).val() > 0 ) {
+                for ( i=0; i<inputs.length; i++ ){
+					if ( inputs[i].value > 0 ) {
 						totalAnswers++;
 					}
-				});
-				if ( totalAnswers === items.length ) $(':input[name=Next]:last').click();
+				}
+				if ( totalAnswers === items.length ) nextBtn.click();
 			}
 			
 		}
 		
 		function hoverStars(target) {
-			$container = target.parents('.starContainer');
-			var starValue = $.inArray(parseInt(target.data('value')), valuesArray) + 1;
-			$container.find('.' + useStar).slice(0,starValue).addClass('hover');
+            var starContainer = target.parentNode,
+				starValue = valuesArray.indexOf(parseInt(target.getAttribute('data-value'))) + 1,
+            	stars =[].slice.call( starContainer.querySelectorAll('.' + useStar)).slice(0,starValue);
+            
+            for ( i=0; i<stars.length; i++ ) {
+                addClass(stars[i],'hover');
+            }
+            
+            if ( showTooltips ) {
+    			tippy('#' + target.id);
+            }
 		}
 		
 		function unHoverStars(target) {
-			$container = target.parents('.starContainer');
-			$container.find('.' + useStar).removeClass('hover');
+            var starContainer = target.parentNode,
+                 stars = starContainer.querySelectorAll('.' + useStar);
+            for ( i=0; i<stars.length; i++ ) {
+                removeClass(stars[i],'hover');
+            }
 		}
 		
-		function selectDK() {
-			
-			var $container = $(this).parents('.controlContainer'),
-				$input = isInLoop ? items[$container.data('iteration')].element : items[0].element,
-				$target = $(this),
-				value = $(this).data('value'),
-				DKID = $input.attr('id').replace(/[^0-9]/g, '');
+		function selectDK(target) {
+			var starContainer = target.parentNode,
+				input = isInLoop ? items[starContainer.getAttribute('data-iteration')].element : items[0].element,
+				value = parseInt(target.getAttribute('data-value')),
+				DKID = input.id.replace(/[^0-9]/g, ''),
+                stars = starContainer.querySelectorAll('.' + useStar + '.selected');
 				
 			// unselect all stars
-			$container.find('.' + useStar + '.selected').removeClass('selected');
-			if ( $(this).hasClass('selected') ) {
-				$(this).removeClass('selected');
-				$input.val('');
-				$('input[name="M' + DKID + ' -1"]').prop('checked', false);
+            for ( i=0; i<stars.length; i++ ) {
+                removeClass(stars[i],'selected');
+            }
+			if ( hasClass(target, 'selected') ) {
+				removeClass(target, 'selected');
+				input.value = '';
+                if ( document.querySelector('input[name="M' + DKID + ' -1"]') )
+                	document.querySelector('input[name="M' + DKID + ' -1"]').checked = false;
 			} else {
-				$(this).addClass('selected');
-				$input.val(value);
-				$('input[name="M' + DKID + ' -1"]').prop('checked', true);
+                addClass(target, 'selected');
+                input.value = value;
+                if ( document.querySelector('input[name="M' + DKID + ' -1"]') )
+                    document.querySelector('input[name="M' + DKID + ' -1"]').checked = true;
 			}
             if (window.askia 
                 && window.arrLiveRoutingShortcut 
@@ -226,84 +385,95 @@
 			// if auto forward and all answered
 			if ( options.autoForward ) {
 				var totalAnswers = 0;
-				$container = $(this).parents('.adc-starRating');
-				$container.find('input').each(function forEachItem() {
-					if ( $(this).val() > 0 ) {
+				for ( i=0; i<inputs.length; i++ ) {
+					if ( inputs[i].value > 0 ) {
 						totalAnswers++;
 					}
-				});
-				if ( totalAnswers === items.length ) $(':input[name=Next]:last').click();
+				}
+				if ( totalAnswers === items.length ) nextBtn.click();
 			}
 			
 		}
 		
 		// Detect DK
-		var DKID = items[0].element.attr('id').replace(/[^0-9]/g, '');
-		if ( $('input[name="M' + DKID + ' -1"]').size() > 0 || dkSingle ) {
+		var DKID = items[0].element.id.replace(/[^0-9]/g, '');
+		if ( document.querySelectorAll('input[name="M' + DKID + ' -1"]').length > 0 || dkSingle ) {
 			//$(this).find('dk').hide();
 		} else {
-			$(this).find('.dk').hide();
+			if ( container.querySelector('.dk') ) container.querySelector('.dk').style.display = 'none';
 		}
 		
 		// Remember value
-		//if ( items[0].element.val() > 0 ) $container.find('.' + useStar).slice(0,items[0].element.val()).addClass('selected');
-		$.each( items, function ( index, element ) {
-			if ( items[index].element.val() > 0 ) {
-				$container = $('.' + items[index].element.attr('id'));
-				var starValue = isSingle  ? $.inArray(parseInt(items[index].element.val()), valuesArray) + 1 : items[index].element.val();
-				if ( dkSingle && isSingle && $.inArray(parseInt(items[index].element.val()), valuesArray) === $container.find('.' + useStar).size() ) {
-					$container.next('.dk').addClass('selected');
+    	for ( i=0; i<items.length; i++ ) {
+			if ( items[i].element.value > 0 ) {
+                var currentContainer = container.querySelector('.' + items[i].element.id),
+					starValue = isSingle ? valuesArray.indexOf(parseInt(items[i].element.value)) + 1 : items[i].element.value;
+                
+				if ( dkSingle && isSingle && valuesArray.indexOf(parseInt(items[i].element.value)) === currentContainer.querySelectorAll('.' + useStar).length ) {
+                    addClass(currentContainer.parentNode.querySelector('.dk'), 'selected');
 				} else {
-					$container.find('.' + useStar).slice(0,starValue).addClass('selected');
+                    stars = [].slice.call(currentContainer.querySelectorAll('.' + useStar)).slice(0,starValue);
+                    for ( j=0; j<stars.length; j++ ) {
+                        addClass(stars[j],'selected');
+                    }
 				}
-			} else if ( items[index].element.val() == -1 ) {
-				var DKID = items[0].element.attr('id').replace(/[^0-9]/g, '');
-				if ( $('input[name="M' + DKID + ' -1"]').prop('checked') ) {
-					$container.next('.dk').addClass('selected');
+			} else if ( document.querySelector('input[name="M' + DKID + ' -1"]') ) {
+				if ( document.querySelector('input[name="M' + DKID + ' -1"]').checked == true ) {
+                    addClass(container.querySelector('.dk'), 'selected');
 				}
 			}
-		});
-		
-		if ( options.animate ) {
-			var delay = 0,
-				easing = (!$.support.transition)?'swing':'snap';
-			
-			$container = $('.starContainer');
-			$container.find('.' + useStar).each(function forEachItem() {
-				$(this).css({ x: 2000, opacity: 0 }).transition({ x: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
-				delay += 30;
-			});
 		}
 		
 		// Attach all events
-		$container = $(this);
-		/*$container
-			.delegate('.' + useStar, 'click', selectStars)
-			.delegate('.' + useStar, 'mouseover mouseout', function(e) {
-    			if (e.type == 'mouseover') {
-      				hoverStars($(this))
-    			} else {
-      				unHoverStars($(this))
-    			}
-			});*/
-		$container.on('click', '.' + useStar, selectStars);
-		$container.on('mouseover mouseout', '.' + useStar,  function(e) {
-			
-			if (e.type == 'mouseover') {
-				hoverStars($(this))
-				var topAdj = $(this).find('span').outerHeight() + 5,
-					leftAdj = ($(this).find('span').outerWidth() - $(this).outerWidth())/2;
-				$(this).find('.classic').css({'top':-topAdj+'px', 'left':-leftAdj+'px'});
-			} else {
-				unHoverStars($(this))
-			}
-		});
-		$container.on('click', '.dk', selectDK);
-		// add dk hover
-		
+        for ( i=0; i<allStars.length; i++ ) {
+            allStars[i].onclick = function(e) {
+                selectStars(this);
+            };
+           allStars[i].onmouseover = function(e) {
+                hoverStars(this);
+               	if (this.querySelector('span')) {
+                    var topAdj = outerHeight(this.querySelector('span')) + 5,
+                        leftAdj = (outerWidth(this.querySelector('span')) - outerWidth(this))/2;
+                    this.querySelector('.classic').style.top = -topAdj+'px';
+                    this.querySelector('.classic').style.left = -leftAdj+'px';
+				}
+            };
+            allStars[i].onmouseout = function(e) {
+                unHoverStars(this);
+            };
+		}
+		if ( container.querySelectorAll( '.dk' ).length > 0 ) {
+            for ( i=0; i<container.querySelectorAll( '.dk' ).length; i++ )
+			container.querySelectorAll( '.dk' )[i].onclick = function(e) {
+				selectDK(this);
+			};
+		}
+        
+        // animate
+        if ( animateResponses ){
+			for ( i=0; i<allStars.length; i++ ) {
+                allStars[i].style.left = "2000px";
+                addClass(allStars[i], 'animate');
+            }
+        }
+        
+        function revealEl(el, delay) {
+            setTimeout(function(){
+                el.style.left = "0px";
+            }, delay);
+            setTimeout(function(){
+                removeClass(el,'animate');
+            }, 500);
+        }
+        
+      	// reveal control      
+        container.style.visibility = "visible";
+        if ( options.animateResponses ){
+			for ( i=0; i<allStars.length; i++ ) {
+                revealEl( allStars[i], 100+ (i*50) );
+            }
+         }
+	}
 
-		// Returns the container
-		return this;
-	};
-
-} (jQuery));
+	window.StarRating = StarRating;
+}());

@@ -14,5 +14,5 @@ Next
 For i = 1 To ar.Count 
 	inputName = CurrentQuestion.Iteration(ar[i].Index).InputName()
 	%}
-{element : $('#{%= inputName%}'),count: {%= i %}, allValues : "{%= allValues%}"}{%= On(i < ar.Count, ",", "") %}
+{element : document.getElementById('{%= inputName%}'),count: {%= i %}, allValues : "{%= allValues%}"}{%= On(i < ar.Count, ",", "") %}
 {% Next %}

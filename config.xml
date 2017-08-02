@@ -7,7 +7,7 @@
   <info>
     <name>StarRating</name>
     <guid>58f3619d-2193-48b6-927c-b81c985aaee2</guid>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <date>2016-06-17</date>
     <description><![CDATA[v1.0.4 - removed CSS3 Pie
 		v1.0.5 - changed tooltips to pure CSS to ensure backwards compatability
@@ -21,7 +21,8 @@
 		v1.0.12 - fixed issue with width in merged screens
         v1.0.13 - added 4 extra icon sets
 		v1.0.14 - fixed dk hover when selected
-		v2.0.0 - Theme implementation]]></description>
+		v2.0.0 - Theme implementation
+		v2.0.1 - PureJS version]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -55,10 +56,9 @@
             <script type="text/javascript" src="{%= CurrentADC.URLTo("share/es5-shim.min.js") %}"></script>
           <![endif]-->]]></yield>
       </content>
-      <content fileName="jquery-1.11.0.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery-ui-1.10.4.custom.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.ui.touch-punch.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.transit.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="domready.js" type="javascript" mode="share" position="head" />
+      <content fileName="tippy.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="tippy.css" type="css" mode="share" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_numeric.js" type="javascript" mode="dynamic" position="none" />
@@ -119,16 +119,6 @@
       <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="boolean" mode="static" require="false" visible="true">
         <description><![CDATA[Whether the resonses fly into the screen]]></description>
         <value><![CDATA[0]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="animationSpeed" name="Animation Speed" type="string" mode="static">
-        <description><![CDATA[Speed of the animation]]></description>
-        <value><![CDATA[fast]]></value>
-        <options>
-          <option value="very fast" text="Very Fast" />
-          <option value="fast" text="Fast" />
-          <option value="medium" text="Medium" />
-          <option value="slow" text="Slow" />
-        </options>
       </property>
       <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="boolean" mode="static" require="false" visible="true">
         <description><![CDATA[Whether the question continues to the next automatically if a single choice question]]></description>
@@ -268,15 +258,6 @@
       <property xsi:type="standardProperty" id="dkSingle" name="Turn on DK for single choice question" type="boolean" mode="static" require="false" visible="true">
         <description><![CDATA[Whether or not to use the last single choice option as a DK]]></description>
         <value><![CDATA[0]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="dkPosition" name="DK Position" type="string" mode="static">
-        <description><![CDATA[Position of DK]]></description>
-        <value><![CDATA[right]]></value>
-        <options>
-          <option value="left" text="Left" />
-          <option value="center" text="Center" />
-          <option value="right" text="Right" />
-        </options>
       </property>
       <property xsi:type="standardProperty" id="dkText" name="DK Text" type="string" mode="static">
         <description><![CDATA[Text for DK]]></description>

@@ -1,4 +1,4 @@
-<div id="adc_{%= CurrentADC.InstanceId %}" class="adc-starRating">
+<div id="adc_{%= CurrentADC.InstanceId %}" class="adc-starRating" style="visibility:hidden;">
 	{% IF CurrentADC.PropValue("isInLoop") = "1" Then %}
         {% If CurrentQuestion.Type = "single"  Then %}
             {%:= CurrentADC.GetContent("dynamic/standard_single_loop.html").ToText()%}

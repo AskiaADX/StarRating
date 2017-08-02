@@ -1,15 +1,19 @@
 {%
 Dim inputName = CurrentQuestion.InputName()
 Dim inputValue
-Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
 Dim imageAlign = CurrentADC.PropValue("imageAlign")
 Dim showTooltip = CurrentADC.PropValue("showTooltips")
+Dim dkSingle = CurrentADC.PropValue("dkSingle")
 Dim i
 Dim j
 Dim ar = CurrentQuestion.ParentLoop.Answers
 Dim avR = CurrentQuestion.AvailableResponses
 Dim caption
 Dim image
+Dim numberOfStars = CurrentQuestion.AvailableResponses.Count
+IF dkSingle = "1" Then
+    numberOfStars = numberOfStars - 1
+EndIF
 
 For j = 1 To ar.Count
     inputName = CurrentQuestion.Iteration(ar[j].Index).InputName() 
@@ -17,7 +21,7 @@ For j = 1 To ar.Count
     image	  = ar.ResourceURL[j]
     %}
     <input type="hidden" id="{%= inputName %}" name="{%= inputName %}" value="{%= CurrentQuestion.Iteration(ar[j].Index).inputValue() %}"  />
-    <div class="controlContainer">
+    <div class="controlContainer" data-iteration="{%= j-1 %}">
         <div class="captionContainer" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
             {% IF image <> "" And imageAlign = "left" Then %}
                 <img src="{%= image %}" />
@@ -32,10 +36,13 @@ For j = 1 To ar.Count
         inputValue  = ar[j].InputValue()
     %}
         <div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="{%= j-1 %}">
-        {% For i = 1 To CurrentQuestion.AvailableResponses.Count %}      
-            <a class="{%= CurrentADC.PropValue("use") %} {% IF showTooltip = "1" Then %}tooltip{% EndIF %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}">{% IF showTooltip = "1" Then %}<span class="classic">{%= CurrentQuestion.AvailableResponses[i].Caption %}</span>{% EndIF %}</a>
+        {% For i = 1 To numberOfStars %}      
+            <a class="{%= CurrentADC.PropValue("use") %}" data-value="{%= avR[i].inputValue() %}" id="star{%= i %}" {% IF showTooltip = "1" Then %}title="{%= CurrentQuestion.AvailableResponses[i].Caption %}"{% EndIF %}></a>
         {% Next %}
         </div>
+        {% IF dkSingle = "1" Then %}
+    	<div class="dk" data-value="{%= avR[numberOfStars + 1].inputValue() %}">{%:= CurrentADC.PropValue("dkText")%}</div>
+        {% EndIF %}
         <div style="clear:both;"></div>
     </div>
 {% Next %}

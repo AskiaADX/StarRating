@@ -50,6 +50,13 @@ Dim useImage = CurrentADC.PropValue("use")
 	text-align:{%= controlAlign%};
 }
 
+.animate {
+    -webkit-transition: all .5s ease-in-out;
+     -moz-transition: all .5s ease-in-out;
+     -o-transition: all .5s ease-in-out;
+     transition: all .5s ease-in-out;
+}
+
 #adc_{%= CurrentADC.InstanceId%} .controlContainer { 
 	text-align:{%= controlAlign%};
 	{% IF controlAlign = "center" Then %}
@@ -64,6 +71,11 @@ Dim useImage = CurrentADC.PropValue("use")
 	*display: inline;
     zoom: 1;
 	
+    /*overflow:hidden;*/
+}
+
+#adc_{%= CurrentADC.InstanceId%} .starContainer > a {
+    position: relative;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .captionContainer {
