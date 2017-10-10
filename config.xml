@@ -7,7 +7,7 @@
   <info>
     <name>StarRating</name>
     <guid>58f3619d-2193-48b6-927c-b81c985aaee2</guid>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
     <date>2016-06-17</date>
     <description><![CDATA[v1.0.4 - removed CSS3 Pie
 		v1.0.5 - changed tooltips to pure CSS to ensure backwards compatability
@@ -51,7 +51,7 @@
       <content fileName="standard_numeric.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_single_loop.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.html" type="html" mode="dynamic" position="none" />
-      <content fileName="es5-shim.min.js" type="javascript" mode="share" position="foot">
+      <content fileName="es5-shim.min.js" type="javascript" mode="share" position="head">
         <yield><![CDATA[<!--[if lt IE 10]>
             <script type="text/javascript" src="{%= CurrentADC.URLTo("share/es5-shim.min.js") %}"></script>
           <![endif]-->]]></yield>
@@ -107,38 +107,58 @@
         <description><![CDATA[The maximum width of the control]]></description>
         <value><![CDATA[100%]]></value>
       </property>
-      <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="static">
+      <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="static" require="false" visible="true">
         <description><![CDATA[The alignment of the control]]></description>
-        <value><![CDATA[left]]></value>
+        <value><![CDATA[center]]></value>
         <options>
           <option value="left" text="Left" />
           <option value="center" text="Center" />
           <option value="right" text="Right" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="boolean" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Whether the resonses fly into the screen]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
-      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="boolean" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Whether the question continues to the next automatically if a single choice question]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
-      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Use a select list to enumerate all available responses.
           This option works with closed and numeric questions.
           For numeric question, the range between bounds should be inferior than 20. It take in account the step option.]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
-      <property xsi:type="standardProperty" id="isInLoop" name="Is in loop" type="boolean" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="isInLoop" name="Is in loop" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Turn this on to use the control in a loop]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
     </category>
     <category id="tooltips" name="Tool Tips">
-      <property xsi:type="standardProperty" id="showTooltips" name="Show tooltips" type="boolean" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="showTooltips" name="Show tooltips" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Show tooltips when hovering over the stars when used with a single choice question]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip font size" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[The font size for the tooltip]]></description>
@@ -255,9 +275,13 @@
       </property>
     </category>
     <category id="dk" name="DK">
-      <property xsi:type="standardProperty" id="dkSingle" name="Turn on DK for single choice question" type="boolean" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="dkSingle" name="Turn on DK for single choice question" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Whether or not to use the last single choice option as a DK]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="dkText" name="DK Text" type="string" mode="static">
         <description><![CDATA[Text for DK]]></description>
@@ -310,25 +334,37 @@
           <option value="none" text="Off" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="showDkHoverColour" name="Show DK Hover Colour" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showDkHoverColour" name="Show DK Hover Colour" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[This will change the colour of DK when hovered over]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="dkHoverColourPrimary" name="DK Hover Background Colour" type="color" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Background colour of the DK when hovering]]></description>
         <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showDkHoverFontColour" name="Show DK Hover Font Colour" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showDkHoverFontColour" name="Show DK Hover Font Colour" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of the text of DK when hovered over]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="dkHoverFontColour" name="DK Hover Font Colour" type="color" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Font colour for DK when hovering]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showDkHoverBorder" name="Show DK Hover Border" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showDkHoverBorder" name="Show DK Hover Border" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of the border of DK when hovered over]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="dkHoverBorderColour" name="DK Hover Border Colour" type="color" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Border colour for DK when hovering]]></description>
@@ -349,9 +385,13 @@
           <option value="double" text="Double" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="showDkHoverShadow" name="Show DK Hover Shadow" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showDkHoverShadow" name="Show DK Hover Shadow" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of the shadow of DK when hovered over]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="dkHoverShadow" name="DK Hover Drop Shadow" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[The visibility of a dropshadow under the DK when hovering]]></description>
