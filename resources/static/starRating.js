@@ -229,9 +229,9 @@
 		var DKID = items[0].element.id.replace(/[^0-9]/g, ''),
 			hasDK = ( document.querySelectorAll('input[name="M' + DKID + ' -1"]').length > 0 ) ? true : false;
 		if ( hasDK ) {
-            document.querySelector('input[name="M' + DKID + ' -1"]').style.display = "none";
-            document.querySelector('img[id$="M' + DKID + '_-1"]').style.display = "none";
-            document.querySelector('span#cpt' + DKID + '_-1').style.display = "none";
+            if ( document.querySelector('input[name="M' + DKID + ' -1"]') ) document.querySelector('input[name="M' + DKID + ' -1"]').style.display = "none";
+            if ( document.querySelector('img[id$="M' + DKID + '_-1"]') ) document.querySelector('img[id$="M' + DKID + '_-1"]').style.display = "none";
+            if ( document.querySelector('span#cpt' + DKID + '_-1') ) document.querySelector('span#cpt' + DKID + '_-1').style.display = "none";
             // image ends with M1_-1   $
             // caption cpt1_-1
             // input same as before
@@ -325,7 +325,9 @@
 						totalAnswers++;
 					}
 				}
-				if ( totalAnswers === items.length ) nextBtn.click();
+                if ( totalAnswers === items.length && !isInLoop ) {
+                    nextBtn.click();
+                }
 			}
 			
 		}
@@ -390,7 +392,9 @@
 						totalAnswers++;
 					}
 				}
-				if ( totalAnswers === items.length ) nextBtn.click();
+				if ( totalAnswers === items.length && !isInLoop ) {
+                    nextBtn.click();
+                }
 			}
 			
 		}
