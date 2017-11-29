@@ -7,7 +7,7 @@
   <info>
     <name>StarRating</name>
     <guid>58f3619d-2193-48b6-927c-b81c985aaee2</guid>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <date>2016-06-17</date>
     <description><![CDATA[v1.0.4 - removed CSS3 Pie
 		v1.0.5 - changed tooltips to pure CSS to ensure backwards compatability
@@ -22,7 +22,8 @@
         v1.0.13 - added 4 extra icon sets
 		v1.0.14 - fixed dk hover when selected
 		v2.0.0 - Theme implementation
-		v2.0.1 - PureJS version]]></description>
+		v2.0.1 - PureJS version
+		v2.0.4 - Fixed Tool Tip styling]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -45,7 +46,6 @@
                 Browser.Support("javascript")
             ]]></condition>
       <content fileName="starRating.css" type="css" mode="static" position="head" />
-      <content fileName="standard.css" type="css" mode="dynamic" position="head" />
       <content fileName="standard.html" type="html" mode="dynamic" position="placeholder" />
       <content fileName="standard_single.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_numeric.html" type="html" mode="dynamic" position="none" />
@@ -59,6 +59,7 @@
       <content fileName="domready.js" type="javascript" mode="share" position="head" />
       <content fileName="tippy.min.js" type="javascript" mode="share" position="head" />
       <content fileName="tippy.css" type="css" mode="share" position="head" />
+      <content fileName="standard.css" type="css" mode="dynamic" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_numeric.js" type="javascript" mode="dynamic" position="none" />
