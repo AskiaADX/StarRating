@@ -24,7 +24,8 @@
 		v2.0.0 - Theme implementation
 		v2.0.1 - PureJS version
 		v2.0.4 - Fixed Tool Tip styling
-		v2.0.5 - Fixed single loop and numerical star rating]]></description>
+		v2.0.5 - Fixed single loop and numerical star rating
+		v2.0.6 - Fixed tooptip for numeric]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>

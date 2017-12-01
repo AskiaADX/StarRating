@@ -341,7 +341,6 @@
             for ( i=0; i<stars.length; i++ ) {
                 addClass(stars[i],'hover');
             }
-            
             if ( showTooltips ) {
     			tippy('#' + target.id);
             }
