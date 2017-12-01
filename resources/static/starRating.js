@@ -249,8 +249,9 @@
 				}
 			}
 		} else {
-			for ( i=1; i<=items.length; i++ ) {
-				valuesArray.push(i);	
+            var allValuesArray = items[0].allValues.split(",");
+			for ( i=0; i<allValuesArray.length; i++ ) {
+				valuesArray.push( parseInt( allValuesArray[i] ) );	
 			}
 		}
         
