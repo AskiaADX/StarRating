@@ -44,7 +44,7 @@
 .adc-starRating .controlContainer { display:block; margin-bottom:10px; }
 .adc-starRating .starContainer { display:inline-block; /*overflow:hidden;*/ vertical-align:middle; margin-bottom:10px; }
 .adc-starRating .captionContainer { 
-	float:left; 
+	/* float:left; */
 	
 	/* disable highlight text */
 	-moz-user-select: none; 

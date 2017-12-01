@@ -249,8 +249,9 @@
 				}
 			}
 		} else {
-			for ( i=1; i<=items.length; i++ ) {
-				valuesArray.push(i);	
+            var allValuesArray = items[0].allValues.split(",");
+			for ( i=0; i<allValuesArray.length; i++ ) {
+				valuesArray.push( parseInt( allValuesArray[i] ) );	
 			}
 		}
         
@@ -285,7 +286,6 @@
 		// Select a statement
 		// @this = target node
 		function selectStars(target) {
-            			
 			var starContainer = target.parentNode,
                 input = isInLoop ? items[starContainer.getAttribute('data-iteration')].element : items[0].element,
 				value = target.getAttribute('data-value'),

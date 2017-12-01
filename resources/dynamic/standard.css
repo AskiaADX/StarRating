@@ -197,3 +197,6 @@ Dim useImage = CurrentADC.PropValue("use")
 .tippy-tooltip .tippy-tooltip-content { 
 	color: rgb({%= tooltipFontColour%}) !important;
 }
+
+
+
