@@ -3,6 +3,7 @@ Dim inputName = CurrentQuestion.InputName()
 Dim inputValue
 Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
 Dim imageAlign = CurrentADC.PropValue("imageAlign")
+Dim showTooltip = CurrentADC.PropValue("showTooltips")
 Dim i
 Dim j
 Dim ar = CurrentQuestion.ParentLoop.AvailableResponses
@@ -30,7 +31,7 @@ For j = 1 To ar.Count
     %}
         <div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="{%= j-1 %}">
         {% For i = 1 To numberOfStars %}      
-            <div class="{%= CurrentADC.PropValue("use") %}" data-value="{%= i %}" id="star{%= i %}"></div>
+            <a class="{%= CurrentADC.PropValue("use") %}" data-value="{%= i %}" id="star{%= i %}" {% IF showTooltip = "1" Then %}title="{%= i %}"{% EndIF %}></a>
         {% Next %}
         </div>
         <div style="clear:both;"></div>

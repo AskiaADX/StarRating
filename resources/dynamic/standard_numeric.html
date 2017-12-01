@@ -2,6 +2,7 @@
 Dim inputName = CurrentQuestion.InputName()
 Dim inputValue
 Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
+Dim showTooltip = CurrentADC.PropValue("showTooltips")
 Dim i
 Dim caption
 Dim image
@@ -16,7 +17,7 @@ inputName = CurrentQuestion.InputName()
 %}
 	<div class="starContainer {%= inputName %}" data-id="{%= inputName %}" data-iteration="1">
 	{% For i = 1 To numberOfStars %}      
-		<div class="{%= CurrentADC.PropValue("use") %}" data-value="{%= i %}" id="star{%= i %}"></div>
+		<a class="{%= CurrentADC.PropValue("use") %}" data-value="{%= i %}" id="star{%= i %}" {% IF showTooltip = "1" Then %}title="{%= i %}"{% EndIF %}></a>
 	{% Next %}
 	</div>
 	<div class="dk" data-value="-1">{%:= CurrentADC.PropValue("dkText")%}</div>
