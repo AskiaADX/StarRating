@@ -433,18 +433,21 @@
             allStars[i].onclick = function(e) {
                 selectStars(this);
             };
-           allStars[i].onmouseover = function(e) {
-                hoverStars(this);
-               	if (this.querySelector('span')) {
-                    var topAdj = outerHeight(this.querySelector('span')) + 5,
-                        leftAdj = (outerWidth(this.querySelector('span')) - outerWidth(this))/2;
-                    this.querySelector('.classic').style.top = -topAdj+'px';
-                    this.querySelector('.classic').style.left = -leftAdj+'px';
-				}
-            };
-            allStars[i].onmouseout = function(e) {
-                unHoverStars(this);
-            };
+            var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+            if (typeof supportsTouch === "undefined") {
+                allStars[i].onmouseover = function(e) {
+                    hoverStars(this);
+                    if (this.querySelector('span')) {
+                        var topAdj = outerHeight(this.querySelector('span')) + 5,
+                            leftAdj = (outerWidth(this.querySelector('span')) - outerWidth(this))/2;
+                        this.querySelector('.classic').style.top = -topAdj+'px';
+                        this.querySelector('.classic').style.left = -leftAdj+'px';
+                    }
+                };
+                allStars[i].onmouseout = function(e) {
+                    unHoverStars(this);
+                };   
+            }
 		}
 		if ( container.querySelectorAll( '.dk' ).length > 0 ) {
             for ( i=0; i<container.querySelectorAll( '.dk' ).length; i++ )
