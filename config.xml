@@ -27,7 +27,8 @@
 		v2.0.5 - Fixed single loop and numerical star rating
 		v2.0.6 - Fixed tooptip for numeric
 		v2.0.6 - Fixed auto forward
-		v2.0.7 - Fixed hover bug on touch device]]></description>
+		v2.0.7 - Fixed hover bug on touch device
+		v2.0.8 - Added alt attribute to img]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
