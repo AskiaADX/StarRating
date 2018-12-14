@@ -2,7 +2,7 @@
 Dim i 
 Dim j
 Dim inputName
-Dim ar = CurrentQuestion.ParentLoop.Answers
+Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
 Dim numberOfStars = CurrentADC.PropValue("numberOfStars").ToNumber()
 Dim allValues = "1"
 
