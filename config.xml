@@ -38,13 +38,13 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="false" RequireLoopDepth="false" />
+      <constraint on="questions" single="true" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="false" RequireLoopDepth="0" />
       <constraint on="controls" textbox="true" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
   <outputs defaultOutput="fallback">
-    <output id="standard">
+    <output id="standard" ManageLoopDepth="1">
       <description><![CDATA[
                 Output when the browser support Javascript
             ]]></description>
@@ -78,7 +78,7 @@
       <content fileName="thumb.png" type="image" mode="static" position="none" />
       <content fileName="tick.png" type="image" mode="static" position="none" />
     </output>
-    <output id="fallback">
+    <output id="fallback" ManageLoopDepth="1">
       <description><![CDATA[
                 Fallback when the browser doesn&rsquo;t support Javascript
             ]]></description>
