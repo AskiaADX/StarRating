@@ -7,8 +7,8 @@
   <info>
     <name>StarRating</name>
     <guid>58f3619d-2193-48b6-927c-b81c985aaee2</guid>
-    <version>3.0.0</version>
-    <date>2016-06-17</date>
+    <version>3.1.0</version>
+    <date>2022-09-22</date>
     <description><![CDATA[v1.0.4 - removed CSS3 Pie
 		v1.0.5 - changed tooltips to pure CSS to ensure backwards compatability
 			   - fixed star rollovers for numeric questions
@@ -29,7 +29,9 @@
 		v2.0.6 - Fixed auto forward
 		v2.0.7 - Fixed hover bug on touch device
 		v2.0.8 - Added alt attribute to img
-		v3.0.0 - AvailableAnswers]]></description>
+		v3.0.0 - AvailableAnswers
+    v3.1.0 - Libraies updated
+           - share folder removed]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -57,14 +59,14 @@
       <content fileName="standard_numeric.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_single_loop.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.html" type="html" mode="dynamic" position="none" />
-      <content fileName="es5-shim.min.js" type="javascript" mode="share" position="head">
+      <content fileName="es5-shim.min.js" type="javascript" mode="static" position="head">
         <yield><![CDATA[<!--[if lt IE 10]>
-            <script type="text/javascript" src="{%= CurrentADC.URLTo("share/es5-shim.min.js") %}"></script>
+            <script type="text/javascript" src="{%= CurrentADC.URLTo("static/es5-shim.min.js") %}"></script>
           <![endif]-->]]></yield>
       </content>
-      <content fileName="domready.js" type="javascript" mode="share" position="head" />
-      <content fileName="tippy.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="tippy.css" type="css" mode="share" position="head" />
+      <content fileName="domready.js" type="javascript" mode="static" position="head" />
+      <content fileName="tippy.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="tippy.css" type="css" mode="static" position="head" />
       <content fileName="standard.css" type="css" mode="dynamic" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
