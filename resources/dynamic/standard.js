@@ -1,5 +1,5 @@
 DomReady.ready(function() {
-     
+
     var starRating = new StarRating({
         instanceId : '{%= CurrentADC.InstanceId%}',
         currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
@@ -21,8 +21,7 @@ DomReady.ready(function() {
 		maxImageHeight : {%= CurrentADC.PropValue("maxImageHeight") %},
 		forceImageSize : '{%= CurrentADC.PropValue("forceImageSize") %}',
 		dkSingle: {%= (CurrentADC.PropValue("dkSingle") = "1") %},
-		dkLeftMargin: '{%= CurrentADC.PropValue("dkLeftMargin") %}',
-      	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
+  	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		items : [
 			{% IF CurrentADC.PropValue("isInLoop") = "1" Then %}
 				{% IF CurrentQuestion.Type = "single" Then %}
